@@ -1,3 +1,7 @@
+load "./utils/folders.mni";
+load "./utils/output.mni";
+load "./utils/managers.mni";
+
 class Marn {
     Marn() {
         this.installed = [];
