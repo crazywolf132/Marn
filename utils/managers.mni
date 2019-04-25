@@ -1,0 +1,14 @@
+load "files";
+
+class Managers {
+    Managers() {
+
+    }
+
+    checkDir() {
+        if (this.dirExists()) {
+
+        }
+    }
+
+}
