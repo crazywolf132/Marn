@@ -3,7 +3,21 @@ load "./utils/output.mni";
 load "./utils/managers.mni";
 
 class Marn {
-    Marn() {
+    Marn(Man, Fol, Out) {
         this.installed = [];
+        this.Man = Man;
+        this.Fol = Fol;
+        this.Out = Out;
+    }
+
+    getInstalled() {
+
     }
 }
+
+
+let Man = Managers();
+let Fol = Folders();
+let Out = Output();
+
+let marn = Marn(Man, Fol, Out);
