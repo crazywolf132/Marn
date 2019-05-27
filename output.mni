@@ -3,13 +3,24 @@ load "logger";
 class Output {
     Output() {
         this.logger = newLogger();
+        this.level = 0;
+    }
+
+    setLevel(level) {
+        this.level = level;
     }
 
     header(header) {
         this.logger.setInfo(header);
     }
 
+    replaceLine(message) {
+        this.logger.singleLine(this.level, message);
+        this.level = 0;
+    }
+
     out(message) {
-        this.logger.log(0, message);
+        this.logger.log(this.level, message);
+        this.level = 0;
     }
 }
