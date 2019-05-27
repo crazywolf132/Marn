@@ -1,0 +1,26 @@
+load "files";
+load "downloader";
+
+class Managers {
+    Managers() {
+        this.foundPackages = [];
+    }
+
+    checkDir() {
+        if (fexists("marn")) {
+            this.findPackages();
+        } else {
+            fmkdir("marn");
+        }
+    }
+
+    findPackages() {
+        this.foundPackages = flistDir("marn");
+        return this.foundPackages;
+    }
+
+    downloader(link, path) {
+        download(link, "marn/" + path);
+    }
+
+}

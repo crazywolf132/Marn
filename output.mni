@@ -1,0 +1,15 @@
+load "logger";
+
+class Output {
+    Output() {
+        this.logger = newLogger();
+    }
+
+    header(header) {
+        this.logger.setInfo(header);
+    }
+
+    out(message) {
+        this.logger.log(0, message);
+    }
+}

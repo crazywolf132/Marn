@@ -1,17 +1,77 @@
-load "./utils/folders.mni";
-load "./utils/output.mni";
-load "./utils/managers.mni";
+load "folders.mni";
+load "output.mni";
+load "managers.mni";
+load "types";
+load "arrays";
 
 class Marn {
     Marn(Man, Fol, Out) {
         this.installed = [];
+        this.required = [];
+        this.toInstall = [];
         this.Man = Man;
         this.Fol = Fol;
         this.Out = Out;
+        this.stage = 0;
     }
 
-    getInstalled() {
+    internal getNotInstalled() {
+        for (required : this.required) {
+            if (!(this.installed.has(required))) {
+                this.toInstall.add(required);
+            }
+        }
+        return this.toInstall;
+    }
 
+    internal getInstalled() {
+        this.installed = this.Man.getPackages();
+        // Returning just incase they are handling the return.
+        return this.installed;
+    }
+
+    internal getPackages() {
+        this.getInstalled();
+        this.getRequired();
+    }
+
+    internal getRequired() {
+        for (folder : this.installed) {
+            if (fexists(folder + "/required.txt")) {
+                let contents = fopen(folder + "/required.txt");
+                for (requirement : contents) {
+                    if (!(this.required.has(requirement))) {
+                        this.required.add(requirement);                        
+                    }
+                    // Already in there, so we wont bother handling it.
+                }
+                // Finsihed going through all the requirements for this module.
+            }
+            // If the first if didnt run, there is no requirements for that one.
+        }
+        // Returning just incase they are handling the return.
+        return this.required;
+    }
+
+    install(name) {
+        if (!(this.toInstall.has(name))) {
+            this.toInstall.add(name);
+        }
+        this.kickOff();
+        // Going to kick off the installer now.
+    }
+
+    internal kickOff() {
+        for (required : this.toInstall) {
+            this.Out.header("🌏 Searching for : ");
+            this.Out.out(required);
+            let link = "https://crazywolf132.github.io/marn/modules/" + required + ".mni";
+            this.Out.header("👷 Downloading : ");
+            this.Out.out(required);
+            this.Man.downloader(link, required);
+            this.Out.header("🔨 Installed : ");
+            this.Out.out(required);
+        }
     }
 }
 
@@ -21,3 +81,5 @@ let Fol = Folders();
 let Out = Output();
 
 let marn = Marn(Man, Fol, Out);
+//marn.install(args.at(0));
+marn.install("chalk");
