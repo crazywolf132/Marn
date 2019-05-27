@@ -1,0 +1,24 @@
+load "std";
+
+class Chalk{
+    Chalk() {
+        this.colors = {};
+        this.selected = nil;
+    }
+
+    addColor(key, val) {
+
+    }
+
+    select(key) {
+        if (this.colors.has(key)) {
+            this.selected = this.colors.at(key);
+        } else {
+            say ANSI_RED + key + " doesn't exist!" + ANSI_RESET;
+        }
+    }
+
+    print(message) {
+        say this.selected + message + ANSI_RESET;
+    }
+}
