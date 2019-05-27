@@ -2,8 +2,9 @@ load "files";
 load "downloader";
 
 class Managers {
-    Managers() {
+    Managers(logger) {
         this.foundPackages = [];
+        this.logger = logger;
     }
 
     checkDir() {
@@ -11,6 +12,7 @@ class Managers {
             this.findPackages();
         } else {
             fmkdir("marn");
+            say "making dir.";
         }
     }
 
@@ -19,8 +21,17 @@ class Managers {
         return this.foundPackages;
     }
 
+    finishedDownload(percentage, downloadedSize, totalSize) {
+//        say "percentage: " + percentage + "%, downloadedSize: " + downloadedSize + ", totalSize: " + totalSize;
+//        this.logger.out("-" * 10);
+        say getType(percentage);
+        let downloaded = "#" * (percentage / 10);
+        let left = "-" * (10 - (percentage / 10));
+        this.logger.replaceLine(downloaded + left);
+    }
+
     downloader(link, path) {
-        download(link, "marn/" + path);
+        download(link, "./marn/" + path + ".mni", this.finishedDownload);
     }
 
 }
