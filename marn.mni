@@ -25,7 +25,7 @@ class Marn {
     }
 
     internal getInstalled() {
-        this.installed = this.Man.getPackages();
+        this.installed = this.Man.findPackages();
         // Returning just incase they are handling the return.
         return this.installed;
     }
@@ -36,6 +36,7 @@ class Marn {
     }
 
     internal getRequired() {
+        say "got here...";
         for (folder : this.installed) {
             if (fexists(folder + "/required.txt")) {
                 let contents = fopen(folder + "/required.txt");
@@ -54,6 +55,8 @@ class Marn {
     }
 
     install(name) {
+        this.Man.checkDir();
+        this.getPackages();
         if (!(this.toInstall.has(name))) {
             this.toInstall.add(name);
         }
@@ -65,20 +68,21 @@ class Marn {
         for (required : this.toInstall) {
             this.Out.header("🌏 Searching for : ");
             this.Out.out(required);
-            let link = "https://crazywolf132.github.io/marn/modules/" + required + ".mni";
+            let link = "https://crazywolf132.github.com/Marn/modules/" + required + ".mni";
             this.Out.header("👷 Downloading : ");
             this.Out.out(required);
             this.Man.downloader(link, required);
-            this.Out.header("🔨 Installed : ");
+            this.Out.header("🔨 Installed :  ");
             this.Out.out(required);
         }
     }
 }
 
 
-let Man = Managers();
+
 let Fol = Folders();
 let Out = Output();
+let Man = Managers(Out);
 
 let marn = Marn(Man, Fol, Out);
 //marn.install(args.at(0));
