@@ -1,0 +1,9 @@
+class Discord {
+    Discord() {
+        this.msg = 'I am soon to be a discord api';
+    }
+
+    show() {
+        return this.msg;
+    }
+}
