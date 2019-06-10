@@ -1,9 +1,0 @@
-class Folders {
-    Folders() {
-
-    }
-
-    dirExists() {
-        return fexists("./packages");
-    }
-}
