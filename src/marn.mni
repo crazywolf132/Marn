@@ -1,0 +1,42 @@
+load "arrays";
+load "logger";
+
+class Marn {
+    Marn( manager, packages ) {
+        this.installed = [];
+        this.required = [];
+        this.toInstall = [];
+        this.logger = newLogger();
+        this.man = manager;
+        this.pac = packages;
+    }
+
+    internal prepare( ) {
+        if (this.man.marnExists( )) {
+            this.installed = this.pac.findInstalled( );
+        } else {
+            this.man.createDir( "marn" );
+        }
+    }
+
+    install(package) {
+        this.prepare( );
+        if ( this.toInstall.has( package ) ) {
+            this.logger.log(2, package + " already installed. " + NL);
+            return nil;
+        }
+        this.logger.setInfo("🌏 Searching for : ");
+        let url = "https://raw.githubusercontent.com/crazywolf132/Marn/master/modules/" + package + ".mni";
+        say this.man.checkURL( url );
+        if (this.man.checkURL( url )) {
+            this.logger.log(0, "Found " + package);
+        } else {
+            this.logger.log(2, "Package not found!" + NL);   
+        }
+        this.logger.setInfo("👷 Downloading : ");
+        this.logger.log(0, "Starting download of " + package + NL);
+        this.man.downloader( package, url );
+        this.logger.setInfo("🔨 Installed :  ");
+        this.logger.log(0, package);
+    }
+}

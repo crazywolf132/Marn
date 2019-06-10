@@ -1,0 +1,27 @@
+load "files";
+
+class Packages {
+    Packages( ) {
+        this.found = [];
+        this.required = [];
+    }
+
+    exists(packageName) {
+        return fexists("./marn/" + packageName + "/" + packageName + ".mni");
+    }
+
+    findInstalled( ) {
+        this.found = flistDir("marn");
+        return this.found;
+    }
+
+    findRequired() {
+        for (item : this.found) {
+            // This is going to be all the folders found inside of marn.
+            let requirements = "./marn/" + (item as "string") + "/requirements.txt";
+            if (fexists( requirements )) {
+                say "what a snob";
+            }
+        }
+    }
+}

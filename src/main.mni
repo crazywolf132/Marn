@@ -1,0 +1,9 @@
+load "marn.mni";
+load "manager.mni";
+load "packages.mni";
+
+let man = Manager();
+let pac = Packages();
+let marn = Marn( man, pac );
+
+marn.install("chalk");

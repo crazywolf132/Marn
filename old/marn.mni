@@ -26,7 +26,7 @@ class Marn {
 
     internal getInstalled() {
         this.installed = this.Man.findPackages();
-        // Returning just incase they are handling the return.
+        // Returning just in-case they are handling the return.
         return this.installed;
     }
 
@@ -38,8 +38,8 @@ class Marn {
     internal getRequired() {
         say "got here...";
         for (folder : this.installed) {
-            if (fexists(folder + "/required.txt")) {
-                let contents = fopen(folder + "/required.txt");
+            if (fexists((folder as "String") + "/required.txt")) {
+                let contents = fread((folder as "String") + "/required.txt");
                 for (requirement : contents) {
                     if (!(this.required.has(requirement))) {
                         this.required.add(requirement);                        
@@ -55,7 +55,7 @@ class Marn {
     }
 
     install(name) {
-        this.Man.checkDir();
+        this.Man.checkDir("marn");
         this.getPackages();
         if (!(this.toInstall.has(name))) {
             this.toInstall.add(name);
@@ -74,16 +74,7 @@ class Marn {
             this.Man.downloader(link, required);
             this.Out.header("🔨 Installed :  ");
             this.Out.out(required);
+            this.installed.add(required);
         }
     }
 }
-
-
-
-let Fol = Folders();
-let Out = Output();
-let Man = Managers(Out);
-
-let marn = Marn(Man, Fol, Out);
-//marn.install(args.at(0));
-marn.install("chalk");
