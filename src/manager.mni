@@ -1,5 +1,4 @@
 load "downloader";
-load "std";
 
 class Manager {
     Manager( ) {
@@ -22,7 +21,6 @@ class Manager {
         if ( this.checkURL( url ) ) {
             this.createDir( this.home + "/" + package );
             download(url, this.home + package + "/" + package + ".mni");
-            this.writeToFile( package );
         }
     }
 
@@ -30,20 +28,22 @@ class Manager {
         return urlExists( url );
     }
 
-    internal writeToFile( filename ) {
-        this.createDir( this.home + filename );
-        let path = "./" + filename + "/" + filename + ".mni";
-        let handlerFile = this.home + "imports.mni";
-        let lines = [];
-        if (fexists( handlerFile )) {
-            lines = split(fread( handlerFile ), "\n");
-        }
-        let importStatement = 'load "' + path + '";' + NL;
-        lines.add(importStatement);
-        let File = fopen(handlerFile);
-        fwrite(File, "", "w");  // Making the file empty.
-        for (line : lines) {
-            fwrite(File, line, "A");
-        }
-    }
+    // internal writeToFile( filename ) {
+    //     this.createDir( this.home + filename );
+    //     let path = "./" + filename + "/" + filename + ".mni";
+    //     let handlerFile = this.home + "imports.mni";
+    //     let lines = [];
+    //     if (fexists( handlerFile )) {
+    //         lines = split(fread( handlerFile ), "\n");
+    //     }
+    //     let importStatement = 'load "' + path + '";' + NL;
+    //     if (!(lines.has(importStatement))) {
+    //         lines.add(importStatement);
+    //     }
+    //     let File = fopen(handlerFile);
+    //     fwrite(File, "", "w");  // Making the file empty.
+    //     for (line : lines) {
+    //         fwrite(File, line, "A");
+    //     }
+    // }
 }

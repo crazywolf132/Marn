@@ -1,3 +1,4 @@
+load "arrays";
 load "marn.mni";
 load "manager.mni";
 load "packages.mni";
@@ -6,4 +7,11 @@ let man = Manager();
 let pac = Packages();
 let marn = Marn( man, pac );
 
-marn.install("chalk");
+//marn.install("chalk");
+if (args.count() > 1) {
+    for (let i = args.posOf("install") + 1; i < args.count(); i++) {
+//        say args.at(i);
+        marn.install(args.at(i));
+    }
+    marn.writeOff();
+}

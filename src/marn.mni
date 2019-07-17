@@ -1,5 +1,6 @@
 load "arrays";
 load "logger";
+load "std";
 
 class Marn {
     Marn( manager, packages ) {
@@ -38,5 +39,23 @@ class Marn {
         this.man.downloader( package, url );
         this.logger.setInfo("🔨 Installed :  ");
         this.logger.log(0, package);
+    }
+
+    writeOff() {
+        // Getting all the installed again.
+        this.installed = this.pac.findInstalled( );
+        let File = fopen("./marn/imports.mni");
+        fdel(File as "string"); // Making the file empty;
+        for ( mod : this.installed ) {
+            let parts = split(mod as "string", "/");
+            
+            let name = parts.at(1);
+            if (name != "imports.mni") {
+                let path = "./" + name + "/" + name + ".mni";
+                let importStatement = 'load "' + path + '";' + NL;
+                fwrite(File, importStatement, "a");
+            }
+        }
+        say "Done";
     }
 }
