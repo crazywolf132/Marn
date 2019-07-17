@@ -20,4 +20,4 @@ gradle buildCompiler
 clear
 # Done to set the pwd to this dir
 cd ../
-java -jar ./build/build/libs/Mani-Stable.jar install chalk discord
+java -jar ./build/build/libs/Mani-Stable.jar install
