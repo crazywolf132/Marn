@@ -6,10 +6,10 @@ if [[ -d "build" && ! -L "build" ]]; then
     else
         cd ../
         rm -rf ./build
-        git clone https://github.com/crazywolf132/Mani build
+        git clone https://github.com/mani-language/Mani build
     fi 
 else
-    git clone https://github.com/crazywolf132/Mani build
+    git clone https://github.com/mani-language/Mani build
 fi
 
 cd build
