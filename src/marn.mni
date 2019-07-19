@@ -27,7 +27,7 @@ class Marn {
             return nil;
         }
         this.logger.setInfo("🌏 Searching for : ");
-        let url = "https://raw.githubusercontent.com/crazywolf132/Marn/master/modules/" + package + ".mni";
+        let url = "https://raw.githubusercontent.com/mani-language/Marn/master/modules/" + package + ".mni";
         say this.man.checkURL( url );
         if (this.man.checkURL( url )) {
             this.logger.log(0, "Found " + package);
